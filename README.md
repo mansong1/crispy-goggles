@@ -11,5 +11,10 @@ Connectors integrate Harness with your cloud platforms, codebase and artifact re
 ### Connect Through Manager
 Communication with the Git provider will be made through the Harness manager which will reduce the response time.
 
+![plot](./assets/direct.png)
+
+
 ### Connect Through Delegate
 Communication with the Git provider will be made through the delegate. This provides enhanced security but will result in slower response time.
+
+![plot](./assets/proxy.png)
