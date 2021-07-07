@@ -1,0 +1,44 @@
+pipeline:
+    name: reactJS
+    identifier: reactJS
+    projectIdentifier: mansong
+    orgIdentifier: default
+    description: Pipeline to build and deploy reactjs gesture recognition application
+    tags:
+        node: ""
+        reactjs: ""
+        nodejs: ""
+        react: ""
+        tensorflow: ""
+        tensorflowjs: ""
+    properties:
+        ci:
+            codebase:
+                connectorRef: mansonggithub
+                repoName: improved-happiness
+                build: <+input>
+    stages:
+        - stage:
+              name: Build and Push
+              identifier: Build_and_Push
+              description: ""
+              type: CI
+              spec:
+                  cloneCodebase: true
+                  execution:
+                      steps:
+                          - step:
+                                type: Run
+                                name: Set Tag
+                                identifier: Set_Tag
+                                spec:
+                                    connectorRef: account.DockerHub
+                                    image: bitnami/git:latest
+                                    command: export version=$(git rev-parse --short HEAD)
+                                    privileged: false
+                  serviceDependencies: []
+                  infrastructure:
+                      type: KubernetesDirect
+                      spec:
+                          connectorRef: account.cidemo
+                          namespace: harness-delegate
