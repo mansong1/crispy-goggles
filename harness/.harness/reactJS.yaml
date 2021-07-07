@@ -32,9 +32,27 @@ pipeline:
                                 name: Set Tag
                                 identifier: Set_Tag
                                 spec:
-                                    connectorRef: account.DockerHub
+                                    connectorRef: mansongdockerhub
                                     image: bitnami/git:latest
                                     command: export version=$(git rev-parse --short HEAD)
+                                    privileged: false
+                          - step:
+                                type: Run
+                                name: Install Dependencies
+                                identifier: Install_Dependencies
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: node:latest
+                                    command: npm install --no-progress --no-audit
+                                    privileged: false
+                          - step:
+                                type: Run
+                                name: Audit
+                                identifier: Audit
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: node:latest
+                                    command: npm audit
                                     privileged: false
                   serviceDependencies: []
                   infrastructure:
