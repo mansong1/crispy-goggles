@@ -1,0 +1,63 @@
+pipeline:
+    name: Java
+    identifier: Java
+    projectIdentifier: _mansong
+    orgIdentifier: default
+    tags:
+        java: ""
+        springboot: ""
+        cosmos: ""
+        spring: ""
+        cosmosdb: ""
+        spring-data-cosmosdb: ""
+    properties:
+        ci:
+            codebase:
+                connectorRef: mansongGithub
+                repoName: spring-todo-app
+                build: <+input>
+    stages:
+        - stage:
+              name: CI
+              identifier: CI
+              description: ""
+              type: CI
+              spec:
+                  cloneCodebase: true
+                  infrastructure:
+                      type: KubernetesDirect
+                      spec:
+                          connectorRef: account.mansong_gke
+                          namespace: harness-build
+                  serviceDependencies:
+                      - identifier: CosmosDB
+                        name: CosmosDB
+                        type: Service
+                        spec:
+                            connectorRef: mansongdockerhub
+                            image: " microsoft/azure-cosmosdb-emulator"
+                            resources:
+                                limits:
+                                    memory: 2Gi
+                                    cpu: "1.0"
+                  execution:
+                      steps:
+                          - step:
+                                type: RunTests
+                                name: Run Tests
+                                identifier: Run_Tests
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: maven:3.3.9-jdk-8
+                                    language: Java
+                                    buildTool: Maven
+                                    args: clean package
+                                    packages: com.azure.spring.samples
+                                    runOnlySelectedTests: true
+                                    reports:
+                                        type: JUnit
+                                        spec:
+                                            paths:
+                                                - "**/*.xml"
+                                failureStrategies: []
+              variables: []
