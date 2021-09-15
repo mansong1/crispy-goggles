@@ -35,7 +35,7 @@ pipeline:
                         type: Service
                         spec:
                             connectorRef: mansongdockerhub
-                            image: " microsoft/azure-cosmosdb-emulator"
+                            image: microsoft/azure-cosmosdb-emulator
                             resources:
                                 limits:
                                     memory: 2Gi
@@ -48,7 +48,7 @@ pipeline:
                                 identifier: Run_Tests
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: maven:3.3.9-jdk-8
+                                    image: maven:3-openjdk-11
                                     language: Java
                                     buildTool: Maven
                                     args: clean package
