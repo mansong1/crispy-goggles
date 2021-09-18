@@ -11,8 +11,8 @@ pipeline:
     properties:
         ci:
             codebase:
-                connectorRef: Github
-                repoName: upgraded-octo-disco
+                connectorRef: mansongGithub
+                repoName: musical-fortnight
                 build: <+input>
     stages:
         - stage:
