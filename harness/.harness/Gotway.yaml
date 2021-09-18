@@ -58,6 +58,10 @@ pipeline:
                                               apk add build-base
                                               go vet ./...
                                           privileged: false
+                                          resources:
+                                              limits:
+                                                  memory: 1Gi
+                                                  cpu: "1"
               variables:
                   - name: golangImage
                     type: String
