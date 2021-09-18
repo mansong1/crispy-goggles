@@ -71,7 +71,7 @@ pipeline:
                                           privileged: false
                           - step:
                                 type: Run
-                                name: Run Tests
+                                name: Unit Tests
                                 identifier: Run_Tests
                                 spec:
                                     connectorRef: mansongdockerhub
@@ -100,6 +100,15 @@ pipeline:
                                         limits:
                                             memory: 1Gi
                                             cpu: "2"
+                          - step:
+                                type: Run
+                                name: Integration Tests
+                                identifier: Integration_Tests
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: amazon/aws-sam-cli-build-image-python3.9
+                                    command: sam local deploy invoke
+                                    privileged: false
                           - step:
                                 type: Run
                                 name: Scan Image
