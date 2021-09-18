@@ -97,6 +97,10 @@ pipeline:
                                         spec:
                                             paths:
                                                 - "*.xml"
+                                    resources:
+                                        limits:
+                                            memory: 1Gi
+                                            cpu: "1.0"
                           - step:
                                 type: Run
                                 name: Clean
