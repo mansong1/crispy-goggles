@@ -91,7 +91,7 @@ pipeline:
                                 identifier: SAM_Build
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: amazon/aws-sam-cli-build-image-python3.8
+                                    image: amazon/aws-sam-cli-build-image-python3.9
                                     command: sam build
                                     privileged: false
                                     envVariables:
@@ -107,7 +107,7 @@ pipeline:
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: amazon/aws-sam-cli-build-image-python3.9
-                                    command: sam local deploy invoke
+                                    command: sam local invoke HelloWorldFunction -e events/event.json
                                     privileged: false
                           - step:
                                 type: Run
@@ -124,7 +124,7 @@ pipeline:
                                 identifier: SAM_Package
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: amazon/aws-sam-cli-build-image-python3.8
+                                    image: amazon/aws-sam-cli-build-image-python3.9
                                     command: |-
                                         sam package --image-repository 759984737373.dkr.ecr.eu-west-2.amazonaws.com/mansong-sam --output-template-file packaged.yaml --region eu-west-2
                                         cat packaged.yaml
