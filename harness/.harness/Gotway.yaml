@@ -35,10 +35,15 @@ pipeline:
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: bitnami/git
-                                    command: export VERSION=`git describe --abbrev=0 --tags`
+                                    command: |-
+                                        ls
+                                        export VERSION=`git describe --abbrev=0 --tags`
                                     privileged: false
                                     outputVariables:
                                         - name: VERSION
+                                failureStrategies: []
+                                when:
+                                    stageStatus: Success
                           - parallel:
                                 - step:
                                       type: Run
