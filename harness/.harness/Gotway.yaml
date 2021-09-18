@@ -92,6 +92,11 @@ pipeline:
                                     image: pricec/gotestsum
                                     command: gotestsum --junitfile results.xml --format standard-verbose -- -coverprofile=cover.out ./...
                                     privileged: false
+                                    reports:
+                                        type: JUnit
+                                        spec:
+                                            paths:
+                                                - "*.xml"
                           - step:
                                 type: Run
                                 name: Clean
