@@ -54,7 +54,9 @@ pipeline:
                                       spec:
                                           connectorRef: mansongdockerhub
                                           image: <+CI.variables.golangImage>
-                                          command: go vet ./...
+                                          command: |-
+                                              apk add build-base
+                                              go vet ./...
                                           privileged: false
               variables:
                   - name: golangImage
