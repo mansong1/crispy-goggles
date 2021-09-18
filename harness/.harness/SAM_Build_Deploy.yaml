@@ -138,18 +138,19 @@ pipeline:
                                             memory: 1Gi
                                             cpu: "1"
                           - step:
-                                type: Run
-                                name: SAM Deploy
-                                identifier: SAM_Deploy
+                                type: Plugin
+                                name: Github Release
+                                identifier: Github_Release
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: amazon/aws-sam-cli-build-image-python3.8
-                                    command: sam deploy --template-file packaged.yaml --stack-name mansong-serverless --capabilities CAPABILITY_IAM --region eu-west-2
+                                    image: plugins/github-release
                                     privileged: false
-                                    envVariables:
-                                        AWS_ACCESS_KEY_ID: <+secrets.getValue("samAWSKeyID")>
-                                        AWS_SECRET_ACCESS_KEY: <+secrets.getValue("samAWSSecret")>
-                                        SAM_CLI_TELEMETRY: "0"
+                                    settings:
+                                        api_key: xxxx
+                                        files: "*.toml"
+                                        checksum: "[md5, sha256]"
+                                        title: 0.0.1
+                                        note: CHANGELOG.md
                   serviceDependencies:
                       - identifier: Dind_Dependency
                         name: Dind_Dependency
