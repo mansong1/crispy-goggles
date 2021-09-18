@@ -28,13 +28,35 @@ pipeline:
                           namespace: harness-build
                   execution:
                       steps:
-                          - step:
-                                type: Run
-                                name: DockerLint
-                                identifier: DockerLint
-                                spec:
-                                    connectorRef: mansongdockerhub
-                                    image: hadolint/hadolint:latest-alpine
-                                    command: hadolint Dockerfile
-                                    privileged: false
-              variables: []
+                          - parallel:
+                                - step:
+                                      type: Run
+                                      name: DockerLint
+                                      identifier: DockerLint
+                                      spec:
+                                          connectorRef: mansongdockerhub
+                                          image: hadolint/hadolint:latest-alpine
+                                          command: hadolint --ignore DL3018 Dockerfile
+                                          privileged: false
+                                - step:
+                                      type: Run
+                                      name: Format
+                                      identifier: Format
+                                      spec:
+                                          connectorRef: mansongdockerhub
+                                          image: <+CI.variables.golangImage>
+                                          command: make fmt
+                                          privileged: false
+                                - step:
+                                      type: Run
+                                      name: Vet
+                                      identifier: Vet
+                                      spec:
+                                          connectorRef: mansongdockerhub
+                                          image: <+CI.variables.golangImage>
+                                          command: make vet
+                                          privileged: false
+              variables:
+                  - name: golangImage
+                    type: String
+                    value: golang:1.16.6-alpine3.14
