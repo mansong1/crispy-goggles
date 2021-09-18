@@ -116,7 +116,7 @@ pipeline:
                                     connectorRef: mansongdockerhub
                                     image: <+CI.variables.golangImage>
                                     command: |-
-                                        go build -tags netgo -a -v -ldflags -X main.version=<+execution.steps.Get_Version.output.outputVariables.VERSION> -s -w -o ./bin/gotway ./cmd/gotway/*.go
+                                        go build -tags netgo -a -v -ldflags="-X main.version=<+execution.steps.Get_Version.output.outputVariables.VERSION>" -s -w -o ./bin/gotway ./cmd/gotway/*.go
                                         chmod +x ./bin/*
                                     privileged: false
               variables:
