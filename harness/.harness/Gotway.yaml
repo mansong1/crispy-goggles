@@ -62,6 +62,17 @@ pipeline:
                                               limits:
                                                   memory: 1Gi
                                                   cpu: "1"
+                          - step:
+                                type: Run
+                                name: Build
+                                identifier: Build
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: <+CI.variables.golangImage>
+                                    command: |-
+                                        rm -rf ./bin
+                                        go clean
+                                    privileged: false
               variables:
                   - name: golangImage
                     type: String
