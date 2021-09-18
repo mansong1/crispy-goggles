@@ -85,6 +85,15 @@ pipeline:
                                                   cpu: "1"
                           - step:
                                 type: Run
+                                name: Test
+                                identifier: Test
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: pricec/gotestsum
+                                    command: gotestsum --junitfile results.xml --format standard-verbose -- -coverprofile=cover.out ./...
+                                    privileged: false
+                          - step:
+                                type: Run
                                 name: Clean
                                 identifier: Clean
                                 spec:
