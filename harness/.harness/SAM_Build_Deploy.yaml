@@ -1,0 +1,161 @@
+pipeline:
+    name: SAM Build Deploy
+    identifier: SAM_Build_Deploy
+    projectIdentifier: _mansong
+    orgIdentifier: default
+    tags:
+        sam: ""
+        lambda: ""
+        python3.9: ""
+        aws: ""
+    properties:
+        ci:
+            codebase:
+                connectorRef: Github
+                repoName: upgraded-octo-disco
+                build: <+input>
+    stages:
+        - stage:
+              name: Build and Deploy
+              identifier: Build_and_Deploy
+              type: CI
+              spec:
+                  cloneCodebase: true
+                  infrastructure:
+                      type: KubernetesDirect
+                      spec:
+                          connectorRef: account.mansong_gke
+                          namespace: harness-build
+                  execution:
+                      steps:
+                          - step:
+                                type: Run
+                                name: Check dind service
+                                identifier: Check_dind_service
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: docker:dind
+                                    command: |-
+                                        while ! docker ps ;do
+                                            echo "Docker not availble yet"
+                                        done
+                                            echo "Docker Service Ready"
+                                    privileged: true
+                          - parallel:
+                                - step:
+                                      type: Run
+                                      name: DockerLint
+                                      identifier: DockerLint
+                                      spec:
+                                          connectorRef: mansongdockerhub
+                                          image: hadolint/hadolint:latest-alpine
+                                          command: hadolint hello_world/Dockerfile
+                                          privileged: false
+                                - step:
+                                      type: Run
+                                      name: Lint
+                                      identifier: Lint
+                                      spec:
+                                          connectorRef: mansongdockerhub
+                                          image: cytopia/pylint
+                                          command: pylint hello_world/ --disable=W,C
+                                          privileged: false
+                                - step:
+                                      type: Run
+                                      name: Audit
+                                      identifier: Audit
+                                      spec:
+                                          connectorRef: mansongdockerhub
+                                          image: pyupio/safety
+                                          command: safety check
+                                          privileged: false
+                          - step:
+                                type: Run
+                                name: Run Tests
+                                identifier: Run_Tests
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: python:3.8-buster
+                                    command: |-
+                                        pip install pytest pytest-mock --user
+                                        python -m pytest tests/ -v --junitxml="result.xml"
+                                    privileged: false
+                                    reports:
+                                        type: JUnit
+                                        spec:
+                                            paths:
+                                                - "*.xml"
+                          - step:
+                                type: Run
+                                name: SAM Build
+                                identifier: SAM_Build
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: amazon/aws-sam-cli-build-image-python3.8
+                                    command: sam build
+                                    privileged: false
+                                    envVariables:
+                                        SAM_CLI_TELEMETRY: "0"
+                                    resources:
+                                        limits:
+                                            memory: 1Gi
+                                            cpu: "2"
+                          - step:
+                                type: Run
+                                name: Scan Image
+                                identifier: SAM_Image_Scan
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: aquasec/trivy
+                                    command: trivy fs --security-checks vuln,config ./hello_world/
+                                    privileged: false
+                          - step:
+                                type: Run
+                                name: SAM Package
+                                identifier: SAM_Package
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: amazon/aws-sam-cli-build-image-python3.8
+                                    command: |-
+                                        sam package --image-repository 759984737373.dkr.ecr.eu-west-2.amazonaws.com/mansong-sam --output-template-file packaged.yaml --region eu-west-2
+                                        cat packaged.yaml
+                                    privileged: false
+                                    envVariables:
+                                        AWS_ACCESS_KEY_ID: <+secrets.getValue("samAWSKeyID")>
+                                        AWS_SECRET_ACCESS_KEY: <+secrets.getValue("samAWSSecret")>
+                                        SAM_CLI_TELEMETRY: "0"
+                                    resources:
+                                        limits:
+                                            memory: 1Gi
+                                            cpu: "1"
+                          - step:
+                                type: Run
+                                name: SAM Deploy
+                                identifier: SAM_Deploy
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: amazon/aws-sam-cli-build-image-python3.8
+                                    command: sam deploy --template-file packaged.yaml --stack-name mansong-serverless --capabilities CAPABILITY_IAM --region eu-west-2
+                                    privileged: false
+                                    envVariables:
+                                        AWS_ACCESS_KEY_ID: <+secrets.getValue("samAWSKeyID")>
+                                        AWS_SECRET_ACCESS_KEY: <+secrets.getValue("samAWSSecret")>
+                                        SAM_CLI_TELEMETRY: "0"
+                  serviceDependencies:
+                      - identifier: Dind_Dependency
+                        name: Dind_Dependency
+                        type: Service
+                        spec:
+                            connectorRef: mansongdockerhub
+                            image: docker:dind
+                            privileged: true
+                  sharedPaths:
+                      - /var/run
+                      - /var/lib/docker
+              variables:
+                  - name: AWS_ACCESS_KEY_ID
+                    type: Secret
+                    value: samAWSKeyID
+                  - name: AWS_SECRET_ACCESS_KEY
+                    type: Secret
+                    value: samAWSSecret
