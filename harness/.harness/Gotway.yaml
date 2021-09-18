@@ -45,7 +45,7 @@ pipeline:
                                       spec:
                                           connectorRef: mansongdockerhub
                                           image: <+CI.variables.golangImage>
-                                          command: make fmt
+                                          command: gofmt -s -w .
                                           privileged: false
                                 - step:
                                       type: Run
@@ -54,7 +54,7 @@ pipeline:
                                       spec:
                                           connectorRef: mansongdockerhub
                                           image: <+CI.variables.golangImage>
-                                          command: make vet
+                                          command: go vet ./...
                                           privileged: false
               variables:
                   - name: golangImage
