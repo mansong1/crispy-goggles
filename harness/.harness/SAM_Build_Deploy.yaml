@@ -1,5 +1,5 @@
 pipeline:
-    name: SAM Build Deploy
+    name: SAM Build and Test
     identifier: SAM_Build_Deploy
     projectIdentifier: _mansong
     orgIdentifier: default
@@ -169,3 +169,49 @@ pipeline:
                   - name: AWS_SECRET_ACCESS_KEY
                     type: Secret
                     value: samAWSSecret
+        - stage:
+              name: Deploy
+              identifier: Deploy
+              description: ""
+              type: Deployment
+              spec:
+                  serviceConfig:
+                      serviceRef: sam_dev
+                      serviceDefinition:
+                          type: Kubernetes
+                          spec:
+                              variables: []
+                  infrastructure:
+                      environmentRef: dev
+                      infrastructureDefinition:
+                          type: KubernetesDirect
+                          spec:
+                              connectorRef: account.mansong_gke
+                              namespace: harness-deploy
+                              releaseName: release-<+INFRA_KEY>
+                      allowSimultaneousDeployments: false
+                  execution:
+                      steps:
+                          - step:
+                                type: ShellScript
+                                name: SAM deploy
+                                identifier: SAM_deploy
+                                spec:
+                                    shell: Bash
+                                    onDelegate: true
+                                    source:
+                                        type: Inline
+                                        spec:
+                                            script: echo "sam deploy"
+                                    environmentVariables: []
+                                    outputVariables: []
+                                    executionTarget: {}
+                                timeout: 10m
+                      rollbackSteps: []
+              tags: {}
+              failureStrategies:
+                  - onFailure:
+                        errors:
+                            - AllErrors
+                        action:
+                            type: StageRollback
