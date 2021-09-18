@@ -13,6 +13,7 @@ pipeline:
                 connectorRef: mansongGithub
                 repoName: gotway
                 build: <+input>
+                depth: 1
                 sslVerify: false
                 prCloneStrategy: SourceBranch
     stages:
