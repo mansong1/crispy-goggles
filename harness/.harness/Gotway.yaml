@@ -13,7 +13,6 @@ pipeline:
                 connectorRef: mansongGithub
                 repoName: gotway
                 build: <+input>
-                depth: 1
                 sslVerify: false
                 prCloneStrategy: SourceBranch
     stages:
@@ -33,7 +32,7 @@ pipeline:
                       steps:
                           - step:
                                 type: Run
-                                name: Get Version
+                                name: Get Tags
                                 identifier: Get_Version
                                 spec:
                                     connectorRef: mansongdockerhub
