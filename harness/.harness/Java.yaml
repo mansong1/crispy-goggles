@@ -14,13 +14,12 @@ pipeline:
         ci:
             codebase:
                 connectorRef: mansongGithub
-                repoName: spring-todo-app
+                repoName: spring-petclinic
                 build: <+input>
     stages:
         - stage:
               name: CI
               identifier: CI
-              description: ""
               type: CI
               spec:
                   cloneCodebase: true
@@ -29,17 +28,6 @@ pipeline:
                       spec:
                           connectorRef: account.mansong_gke
                           namespace: harness-build
-                  serviceDependencies:
-                      - identifier: CosmosDB
-                        name: CosmosDB
-                        type: Service
-                        spec:
-                            connectorRef: mansongdockerhub
-                            image: microsoft/azure-cosmosdb-emulator
-                            resources:
-                                limits:
-                                    memory: 2Gi
-                                    cpu: "1.0"
                   execution:
                       steps:
                           - step:
@@ -48,16 +36,26 @@ pipeline:
                                 identifier: Run_Tests
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: maven:3-openjdk-11
+                                    image: maven:<+CI.variables.mavenversion>-jdk-<+CI.variables.javaversion>
                                     language: Java
                                     buildTool: Maven
-                                    args: clean package
-                                    packages: com.azure.spring.samples
+                                    args: test
+                                    packages: com.
                                     runOnlySelectedTests: true
-                                    reports:
-                                        type: JUnit
-                                        spec:
-                                            paths:
-                                                - "**/*.xml"
-                                failureStrategies: []
-              variables: []
+                                    preCommand: cd spring-petclinic
+                          - step:
+                                type: Run
+                                name: Build
+                                identifier: Build
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: maven:<+pipeline.variables.mavenversion>-jdk-<+pipeline.variables.javaversion>
+                                    command: mvn -B -DskipTests clean package
+                                    privileged: false
+              variables:
+                  - name: mavenversion
+                    type: String
+                    value: 3.8.2
+                  - name: javaversion
+                    type: String
+                    value: openjdk-8
