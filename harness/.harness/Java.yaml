@@ -1,5 +1,5 @@
 pipeline:
-    name: Java
+    name: PetClinic
     identifier: Java
     projectIdentifier: _mansong
     orgIdentifier: default
@@ -59,3 +59,4 @@ pipeline:
                   - name: javaversion
                     type: String
                     value: openjdk-8
+    description: Petclinic is a Spring Boot application built using Maven.
