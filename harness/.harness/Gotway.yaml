@@ -28,6 +28,17 @@ pipeline:
                           namespace: harness-build
                   execution:
                       steps:
+                          - step:
+                                type: Run
+                                name: Get Version
+                                identifier: Get_Version
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: bitnami/git
+                                    command: export VERSION=`git describe --abbrev=0 --tags`
+                                    privileged: false
+                                    outputVariables:
+                                        - name: VERSION
                           - parallel:
                                 - step:
                                       type: Run
@@ -64,14 +75,25 @@ pipeline:
                                                   cpu: "1"
                           - step:
                                 type: Run
-                                name: Build
-                                identifier: Build
+                                name: Clean
+                                identifier: Clean
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: <+CI.variables.golangImage>
                                     command: |-
                                         rm -rf ./bin
                                         go clean
+                                    privileged: false
+                          - step:
+                                type: Run
+                                name: Build
+                                identifier: Build2
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: <+CI.variables.golangImage>
+                                    command: |-
+                                        go build -tags netgo -a -v -ldflags -X main.version=<+execution.steps.Get_Version.output.outputVariables.VERSION> -s -w -o ./bin/gotway ./cmd/gotway/*.go
+                                        chmod +x ./bin/*
                                     privileged: false
               variables:
                   - name: golangImage
