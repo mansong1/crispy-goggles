@@ -138,6 +138,15 @@ pipeline:
                                             memory: 1Gi
                                             cpu: "1"
                           - step:
+                                type: S3Upload
+                                name: S3 Upload
+                                identifier: S3_Upload
+                                spec:
+                                    connectorRef: mansongaws
+                                    region: eu-west-2
+                                    bucket: mansong-sam
+                                    sourcePath: ./aws-sam
+                          - step:
                                 type: Plugin
                                 name: Github Release
                                 identifier: Github_Release
