@@ -178,6 +178,9 @@ pipeline:
                   - name: SAM_BUILD_IMAGE
                     type: String
                     value: amazon/aws-sam-cli-build-image-python3.8
+                  - name: IMAGE_REPO
+                    type: String
+                    value: 759984737373.dkr.ecr.eu-west-2.amazonaws.com/mansong-sam
         - stage:
               name: Deploy
               identifier: Deploy
