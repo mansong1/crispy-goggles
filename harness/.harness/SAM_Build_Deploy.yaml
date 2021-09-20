@@ -106,7 +106,7 @@ pipeline:
                                 identifier: Integration_Tests
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: amazon/aws-sam-cli-build-image-python3.9
+                                    image: <+Build_and_Deploy.variables.SAM_BUILD_IMAGE>
                                     command: sam local invoke HelloWorldFunction -e events/event.json
                                     privileged: false
                           - step:
