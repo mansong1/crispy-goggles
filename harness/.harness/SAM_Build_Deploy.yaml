@@ -151,6 +151,10 @@ pipeline:
                                         checksum: "[md5, sha256]"
                                         title: 0.0.1
                                         note: CHANGELOG.md
+                                when:
+                                    stageStatus: Success
+                                    condition: <+trigger.Branch> == "master"
+                                failureStrategies: []
                   serviceDependencies:
                       - identifier: Dind_Dependency
                         name: Dind_Dependency
