@@ -151,6 +151,7 @@ pipeline:
                                     bucket: mansong-sam
                                     sourcePath: ./aws-sam
                                 failureStrategies: []
+                      rollbackSteps: []
                   serviceDependencies:
                       - identifier: Dind_Dependency
                         name: Dind_Dependency
@@ -206,9 +207,11 @@ pipeline:
                                         type: Inline
                                         spec:
                                             script: |-
-                                                echo "sam deploy"
+                                                set +x
 
-                                                export apiUrl="test"
+                                                export AWS_ACCESS_KEY_ID=<+secrets.getValue("awsKeyID")>
+                                                export AWS_SECRET_ACCESS_KEY=<+secrets.getValue("awsSecret")>
+                                                export AWS_DEFAULT_REGION=<+stage.variables.AWS_REGION>
                                     environmentVariables: []
                                     outputVariables:
                                         - name: apiUrl
@@ -238,3 +241,7 @@ pipeline:
                             - AllErrors
                         action:
                             type: StageRollback
+              variables:
+                  - name: AWS_REGION
+                    type: String
+                    value: eu-west-2
