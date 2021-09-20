@@ -135,7 +135,7 @@ pipeline:
                                     connectorRef: mansongdockerhub
                                     image: <+Build_and_Deploy.variables.SAM_BUILD_IMAGE>
                                     command: |-
-                                        sam package --image-repository 759984737373.dkr.ecr.eu-west-2.amazonaws.com/mansong-sam --output-template-file packaged.yaml --region eu-west-2
+                                        sam package --image-repository <+Build_and_Deploy.variables.IMAGE_REPO> --output-template-file packaged.yaml --region eu-west-2
                                         cat packaged.yaml
                                     privileged: false
                                     envVariables:
