@@ -130,8 +130,8 @@ pipeline:
                                         cat packaged.yaml
                                     privileged: false
                                     envVariables:
-                                        AWS_ACCESS_KEY_ID: <+secrets.getValue("samAWSKeyID")>
-                                        AWS_SECRET_ACCESS_KEY: <+secrets.getValue("samAWSSecret")>
+                                        AWS_ACCESS_KEY_ID: <+secrets.getValue("awsKeyID")>
+                                        AWS_SECRET_ACCESS_KEY: <+secrets.getValue("awsSecret")>
                                         SAM_CLI_TELEMETRY: "0"
                                     resources:
                                         limits:
