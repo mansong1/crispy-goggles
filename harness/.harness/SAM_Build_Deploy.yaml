@@ -250,7 +250,22 @@ pipeline:
                                     url: <+execution.steps.SAM_deploy.output.outputVariables.apiUrl>
                                 timeout: 10s
                                 failureStrategies: []
-                      rollbackSteps: []
+                      rollbackSteps:
+                          - step:
+                                type: ShellScript
+                                name: Delete Stack
+                                identifier: Delete_Stack
+                                spec:
+                                    shell: Bash
+                                    onDelegate: true
+                                    source:
+                                        type: Inline
+                                        spec:
+                                            script: aws cloudformation delete-stack --stack-name <+stage.variables.STACK_NAME>
+                                    environmentVariables: []
+                                    outputVariables: []
+                                    executionTarget: {}
+                                timeout: 10m
                   serviceDependencies: []
               tags: {}
               failureStrategies:
