@@ -49,7 +49,7 @@ pipeline:
                                       spec:
                                           connectorRef: mansongdockerhub
                                           image: hadolint/hadolint:latest-alpine
-                                          command: hadolint hello_world/Dockerfile
+                                          command: hadolint  --ignore DL3003 --ignore DL3006 hello_world/Dockerfile
                                           privileged: false
                                 - step:
                                       type: Run
