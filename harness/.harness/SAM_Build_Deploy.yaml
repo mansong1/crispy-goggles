@@ -120,7 +120,7 @@ pipeline:
                                     image: snyk/snyk-cli:python-3
                                     command: |-
                                         cd hello_world
-                                        SNYK_TOKEN=<+secrets.getValue("snykapitoken")> snyk container test : --file=Dockerfile
+                                        SNYK_TOKEN=<+secrets.getValue("snykapitoken")> snyk container test helloworldfunction
                                     privileged: false
                           - step:
                                 type: Run
