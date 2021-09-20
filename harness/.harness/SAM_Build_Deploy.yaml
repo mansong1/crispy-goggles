@@ -226,6 +226,7 @@ pipeline:
                                                 export AWS_ACCESS_KEY_ID=<+secrets.getValue("awsKeyID")>
                                                 export AWS_SECRET_ACCESS_KEY=<+secrets.getValue("awsSecret")>
                                                 export AWS_DEFAULT_REGION=<+stage.variables.AWS_REGION>
+                                                export SAM_CLI_TELEMETRY=0
 
                                                 workdir=/tmp/
                                                 src=s3://mansong-sam/packaged.yaml
@@ -238,9 +239,7 @@ pipeline:
 
                                                 aws cloudformation describe-stacks --stack-name <+stage.variables.STACK_NAME> --query 'Stacks[0].Outputs[?OutputKey==`HelloWorldApi`].OutputValue' --output text > api.txt
 
-                                                export testUrl=`cat api.txt`
-                                                echo ${testUrl}
-                                                export apiUrl="https://google.com"
+                                                export apiUrl=`cat api.txt`
                                     environmentVariables: []
                                     outputVariables:
                                         - name: apiUrl
