@@ -193,14 +193,7 @@ pipeline:
                           type: Kubernetes
                           spec:
                               variables: []
-                              artifacts:
-                                  primary:
-                                      type: Ecr
-                                      spec:
-                                          connectorRef: mansongaws
-                                          imagePath: mansong-sam
-                                          region: eu-west-2
-                                          tag: <+input>
+                              artifacts: {}
                   infrastructure:
                       environmentRef: dev
                       infrastructureDefinition:
