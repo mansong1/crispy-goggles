@@ -109,6 +109,8 @@ pipeline:
                                     image: <+Build_and_Deploy.variables.SAM_BUILD_IMAGE>
                                     command: sam local invoke HelloWorldFunction -e events/event.json
                                     privileged: false
+                                    envVariables:
+                                        SAM_CLI_TELEMETRY: "0"
                           - step:
                                 type: Run
                                 name: Scan Image
