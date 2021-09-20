@@ -118,7 +118,7 @@ pipeline:
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: snyk/snyk-cli:python-3
-                                    command: SNYK_TOKEN=<+secrets.getValue("snykapitoken")> synk test
+                                    command: SNYK_TOKEN=<+secrets.getValue("snykapitoken")> snyk test
                                     privileged: false
                           - step:
                                 type: Run
