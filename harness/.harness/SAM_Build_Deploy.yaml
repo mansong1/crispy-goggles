@@ -216,6 +216,14 @@ pipeline:
                                                 export AWS_ACCESS_KEY_ID=<+secrets.getValue("awsKeyID")>
                                                 export AWS_SECRET_ACCESS_KEY=<+secrets.getValue("awsSecret")>
                                                 export AWS_DEFAULT_REGION=<+stage.variables.AWS_REGION>
+
+                                                workdir=/tmp/
+                                                src=s3://mansong-sam/packaged.yaml
+                                                dst=${workdir}/packaged.yaml
+
+                                                aws s3 cp ${src} ${dst}
+
+                                                cat ${dst}
                                     environmentVariables: []
                                     outputVariables:
                                         - name: apiUrl
