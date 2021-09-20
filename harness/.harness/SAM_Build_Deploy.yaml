@@ -113,7 +113,7 @@ pipeline:
                                         SAM_CLI_TELEMETRY: "0"
                           - step:
                                 type: Run
-                                name: Scan Image
+                                name: Snyk Image Scan
                                 identifier: SAM_Image_Scan
                                 spec:
                                     connectorRef: mansongdockerhub
