@@ -75,7 +75,7 @@ pipeline:
                                 identifier: Run_Tests
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: python:3.8-buster
+                                    image: python:3.9.7-buster
                                     command: |-
                                         pip install pytest pytest-mock --user
                                         python -m pytest tests/ -v --junitxml="result.xml"
