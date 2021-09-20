@@ -224,6 +224,7 @@ pipeline:
                                 timeout: 10m
                                 failureStrategies: []
                       rollbackSteps: []
+                  serviceDependencies: []
               tags: {}
               failureStrategies:
                   - onFailure:
