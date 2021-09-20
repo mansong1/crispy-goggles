@@ -146,25 +146,6 @@ pipeline:
                                     region: eu-west-2
                                     bucket: mansong-sam
                                     sourcePath: ./aws-sam
-                          - step:
-                                type: Plugin
-                                name: Github Release
-                                identifier: Github_Release
-                                spec:
-                                    connectorRef: mansongdockerhub
-                                    image: plugins/github-release
-                                    privileged: false
-                                    settings:
-                                        api_key: xxxx
-                                        files: "*.toml"
-                                        checksum: "[md5, sha256]"
-                                        title: 0.0.1
-                                        note: CHANGELOG.md
-                                when:
-                                    stageStatus: Success
-                                    condition: <+trigger.branch> == "master"
-                                failureStrategies: []
-                      rollbackSteps: []
                   serviceDependencies:
                       - identifier: Dind_Dependency
                         name: Dind_Dependency
