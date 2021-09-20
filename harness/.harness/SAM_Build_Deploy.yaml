@@ -146,6 +146,7 @@ pipeline:
                                     region: eu-west-2
                                     bucket: mansong-sam
                                     sourcePath: ./aws-sam
+                                failureStrategies: []
                   serviceDependencies:
                       - identifier: Dind_Dependency
                         name: Dind_Dependency
