@@ -224,8 +224,7 @@ pipeline:
                                                 dst=${workdir}/packaged.yaml
 
                                                 aws s3 cp ${src} ${dst}
-                                                sam deploy --template-file  ${dst} --image-repository ${serviceVariable.imageRepo} --stack-name <+stage.variables.STACK_NAME> --capabilities CAPABILITY_IAM --region <+stage.variables.AWS_REGION>
-
+                                                sam deploy --template-file  ${dst} --image-repository <+pipeline.stages.Build_and_Deploy.variables.IMAGE_REPO> --stack-name <+stage.variables.STACK_NAME> --capabilities CAPABILITY_IAM --region <+stage.variables.AWS_REGION>
 
                                                 cat ${dst}
 
