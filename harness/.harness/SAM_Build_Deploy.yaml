@@ -223,6 +223,8 @@ pipeline:
                                                 aws s3 cp ${src} ${dst}
 
                                                 cat ${dst}
+
+                                                export apiUrl="https://google.com"
                                     environmentVariables: []
                                     outputVariables:
                                         - name: apiUrl
@@ -243,6 +245,7 @@ pipeline:
                                     outputVariables: []
                                     url: <+execution.steps.SAM_deploy.output.outputVariables.apiUrl>
                                 timeout: 10s
+                                failureStrategies: []
                       rollbackSteps: []
                   serviceDependencies: []
               tags: {}
