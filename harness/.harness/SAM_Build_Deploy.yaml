@@ -117,7 +117,7 @@ pipeline:
                                 identifier: SAM_Image_Scan
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: snake/snyk-cli
+                                    image: snyk/snyk-cli
                                     command: SNYK_TOKEN=<+secrets.getValue("snykapitoken")> synk test
                                     privileged: false
                           - step:
