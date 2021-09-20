@@ -154,7 +154,7 @@ pipeline:
                                     connectorRef: mansongaws
                                     region: eu-west-2
                                     bucket: mansong-sam
-                                    sourcePath: ./aws-sam
+                                    sourcePath: packaged.yaml
                                 failureStrategies: []
                       rollbackSteps: []
                   serviceDependencies:
