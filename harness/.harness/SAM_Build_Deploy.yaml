@@ -165,10 +165,10 @@ pipeline:
               variables:
                   - name: AWS_ACCESS_KEY_ID
                     type: Secret
-                    value: samAWSKeyID
+                    value: awsKeyID
                   - name: AWS_SECRET_ACCESS_KEY
                     type: Secret
-                    value: samAWSSecret
+                    value: awsSecret
         - stage:
               name: Deploy
               identifier: Deploy
