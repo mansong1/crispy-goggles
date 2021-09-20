@@ -91,7 +91,7 @@ pipeline:
                                 identifier: SAM_Build
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: amazon/aws-sam-cli-build-image-python3.9
+                                    image: <+Build_and_Deploy.variables.SAM_BUILD_IMAGE>
                                     command: sam build
                                     privileged: false
                                     envVariables:
@@ -124,7 +124,7 @@ pipeline:
                                 identifier: SAM_Package
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: amazon/aws-sam-cli-build-image-python3.9
+                                    image: <+Build_and_Deploy.variables.SAM_BUILD_IMAGE>
                                     command: |-
                                         sam package --image-repository 759984737373.dkr.ecr.eu-west-2.amazonaws.com/mansong-sam --output-template-file packaged.yaml --region eu-west-2
                                         cat packaged.yaml
@@ -164,6 +164,9 @@ pipeline:
                   - name: AWS_SECRET_ACCESS_KEY
                     type: Secret
                     value: awsSecret
+                  - name: SAM_BUILD_IMAGE
+                    type: String
+                    value: amazon/aws-sam-cli-build-image-python3.8
         - stage:
               name: Deploy
               identifier: Deploy
