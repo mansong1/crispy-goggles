@@ -120,8 +120,12 @@ pipeline:
                                     image: snyk/snyk-cli:python-3
                                     command: |-
                                         cd hello_world
-                                        SNYK_TOKEN=<+secrets.getValue("snykapitoken")> snyk container test helloworldfunction
-                                    privileged: false
+                                        SNYK_TOKEN=<+secrets.getValue("snykapitoken")> snyk container test : --file=Dockerfile
+                                    privileged: true
+                                    resources:
+                                        limits:
+                                            memory: 1Gi
+                                            cpu: "1.0"
                           - step:
                                 type: Run
                                 name: SAM Package
