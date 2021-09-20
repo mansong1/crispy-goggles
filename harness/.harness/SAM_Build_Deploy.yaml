@@ -261,3 +261,6 @@ pipeline:
                   - name: AWS_REGION
                     type: String
                     value: eu-west-2
+                  - name: STACK_NAME
+                    type: String
+                    value: mansong-serverless
