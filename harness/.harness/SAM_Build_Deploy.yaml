@@ -162,7 +162,7 @@ pipeline:
                                         note: CHANGELOG.md
                                 when:
                                     stageStatus: Success
-                                    condition: <+trigger.Branch> == "master"
+                                    condition: <+trigger.branch> == "master"
                                 failureStrategies: []
                       rollbackSteps: []
                   serviceDependencies:
