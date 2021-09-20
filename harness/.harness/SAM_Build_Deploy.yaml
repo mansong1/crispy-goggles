@@ -228,6 +228,10 @@ pipeline:
 
                                                 cat ${dst}
 
+                                                aws cloudformation describe-stacks --stack-name <+stage.variables.STACK_NAME> --query 'Stacks[0].Outputs[?OutputKey==`HelloWorldApi`].OutputValue' --output text > api.txt
+
+                                                export testUrl=`cat api.txt`
+                                                echo ${testUrl}
                                                 export apiUrl="https://google.com"
                                     environmentVariables: []
                                     outputVariables:
