@@ -185,7 +185,7 @@ pipeline:
               type: Deployment
               spec:
                   serviceConfig:
-                      serviceRef: sam_dev
+                      serviceRef: HelloWorldFunction
                       serviceDefinition:
                           type: Kubernetes
                           spec:
