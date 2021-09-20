@@ -16,7 +16,7 @@ pipeline:
                 build: <+input>
     stages:
         - stage:
-              name: Build and Deploy
+              name: Build and Test
               identifier: Build_and_Deploy
               type: CI
               spec:
@@ -164,6 +164,7 @@ pipeline:
                                     stageStatus: Success
                                     condition: <+trigger.Branch> == "master"
                                 failureStrategies: []
+                      rollbackSteps: []
                   serviceDependencies:
                       - identifier: Dind_Dependency
                         name: Dind_Dependency
@@ -215,14 +216,30 @@ pipeline:
                                     source:
                                         type: Inline
                                         spec:
-                                            script: echo "sam deploy"
+                                            script: |-
+                                                echo "sam deploy"
+
+                                                export apiUrl="test"
                                     environmentVariables: []
-                                    outputVariables: []
+                                    outputVariables:
+                                        - name: apiUrl
+                                          type: String
+                                          value: apiUrl
                                     executionTarget: {}
                                     delegateSelectors:
                                         - mansong-gke
                                 timeout: 10m
                                 failureStrategies: []
+                          - step:
+                                type: Http
+                                name: Http
+                                identifier: Http
+                                spec:
+                                    method: GET
+                                    headers: []
+                                    outputVariables: []
+                                    url: <+execution.steps.SAM_deploy.output.outputVariables.apiUrl>
+                                timeout: 10s
                       rollbackSteps: []
                   serviceDependencies: []
               tags: {}
