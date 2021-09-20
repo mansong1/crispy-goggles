@@ -115,8 +115,8 @@ pipeline:
                                 identifier: SAM_Image_Scan
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: aquasec/trivy
-                                    command: trivy fs --security-checks vuln,config ./hello_world/
+                                    image: docker:dind
+                                    command: docker scan --file hello_world/Dockerfile helloworldfunction
                                     privileged: false
                           - step:
                                 type: Run
