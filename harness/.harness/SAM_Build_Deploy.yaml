@@ -117,8 +117,8 @@ pipeline:
                                 identifier: SAM_Image_Scan
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: docker:dind
-                                    command: docker scan --file hello_world/Dockerfile helloworldfunction
+                                    image: snake/snyk-cli
+                                    command: SNYK_TOKEN=<+secrets.getValue("snykapitoken")> synk test
                                     privileged: false
                           - step:
                                 type: Run
