@@ -207,7 +207,7 @@ pipeline:
                       steps:
                           - step:
                                 type: ShellScript
-                                name: SAM deploy
+                                name: SAM Deploy
                                 identifier: SAM_deploy
                                 spec:
                                     shell: Bash
