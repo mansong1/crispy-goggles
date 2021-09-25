@@ -39,6 +39,15 @@ pipeline:
                                     archiveFormat: Tar
                           - step:
                                 type: Run
+                                name: Install Dependencies
+                                identifier: Install_Dependencies
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: cimg/node:16.9.1-browsers
+                                    command: npm install
+                                    privileged: true
+                          - step:
+                                type: Run
                                 name: Lint
                                 identifier: Lint
                                 spec:
@@ -48,13 +57,13 @@ pipeline:
                                     privileged: false
                           - step:
                                 type: Run
-                                name: Install Dependencies
-                                identifier: Install_Dependencies
+                                name: Run Test
+                                identifier: Run_Test
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: cimg/node:16.9.1-browsers
-                                    command: npm install
-                                    privileged: true
+                                    command: npm run test
+                                    privileged: false
                           - step:
                                 type: SaveCacheS3
                                 name: Save Cache to S3
