@@ -80,7 +80,7 @@ pipeline:
                                 identifier: Generate_Builds
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: electronuserland/builder
+                                    image: electronuserland/electron-builder:wine
                                     command: npm run make
                                     privileged: false
               variables: []
