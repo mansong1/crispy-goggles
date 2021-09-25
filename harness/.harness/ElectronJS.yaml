@@ -28,6 +28,15 @@ pipeline:
                   execution:
                       steps:
                           - step:
+                                type: Run
+                                name: Lint
+                                identifier: Lint
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: pipelinecomponents/eslint
+                                    command: eslint .
+                                    privileged: false
+                          - step:
                                 type: RestoreCacheS3
                                 name: Restore Cache from S3
                                 identifier: Restore_Cache_from_S3
