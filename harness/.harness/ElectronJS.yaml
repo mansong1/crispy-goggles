@@ -43,7 +43,7 @@ pipeline:
                                 identifier: Install_Dependencies
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: node:16
+                                    image: cimg/node:16.9.1-browsers
                                     command: npm install
                                     privileged: true
                           - step:
