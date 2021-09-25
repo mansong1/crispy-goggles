@@ -70,7 +70,7 @@ pipeline:
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: <+Build_and_Publish.variables.node_version>
-                                    command: npm test
+                                    command: yarn test
                                     privileged: false
                                     reports:
                                         type: JUnit
@@ -85,7 +85,7 @@ pipeline:
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: <+Build_and_Publish.variables.node_version>
-                                    command: npm run build
+                                    command: yarn build
                                     privileged: false
                                     resources:
                                         limits:
