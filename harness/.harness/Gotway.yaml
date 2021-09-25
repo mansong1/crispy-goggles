@@ -112,17 +112,6 @@ pipeline:
                                         rm -rf ./bin
                                         go clean
                                     privileged: false
-                          - step:
-                                type: Run
-                                name: Build
-                                identifier: Build2
-                                spec:
-                                    connectorRef: mansongdockerhub
-                                    image: <+CI.variables.golangImage>
-                                    command: |-
-                                        go build -tags netgo -a -v -ldflags="-X main.version=<+execution.steps.Get_Version.output.outputVariables.VERSION>" -s -w -o ./bin/gotway ./cmd/gotway/*.go
-                                        chmod +x ./bin/*
-                                    privileged: false
               variables:
                   - name: golangImage
                     type: String
