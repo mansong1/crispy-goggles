@@ -68,7 +68,7 @@ pipeline:
                                 identifier: Run_Test
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: electronuserland/electron-builder:wine
+                                    image: electronuserland/builder:wine-chrome-05.21
                                     command: |-
                                         Xvfb :99 -ac &
                                         sleep 5
