@@ -76,6 +76,15 @@ pipeline:
                                     archiveFormat: Tar
                           - step:
                                 type: Run
+                                name: Generate Darwin
+                                identifier: Generate_Darwin
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: node:16.9.1
+                                    command: npm run make -- --platform=darwin
+                                    privileged: false
+                          - step:
+                                type: Run
                                 name: Generate Builds
                                 identifier: Generate_Builds
                                 spec:
