@@ -34,6 +34,8 @@ pipeline:
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: circleci/node:11-browsers
-                                    command: npm install
-                                    privileged: false
+                                    command: |-
+                                        npm install -g npm
+                                        npm install
+                                    privileged: true
               variables: []
