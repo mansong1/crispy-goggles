@@ -28,6 +28,16 @@ pipeline:
                   execution:
                       steps:
                           - step:
+                                type: RestoreCacheS3
+                                name: Restore Cache from S3
+                                identifier: Restore_Cache_from_S3
+                                spec:
+                                    connectorRef: mansongaws
+                                    region: eu-west-2
+                                    bucket: mansong-npm
+                                    key: dependency-cache-{{ checksum "package.json" }}
+                                    archiveFormat: Tar
+                          - step:
                                 type: Run
                                 name: Install Dependencies
                                 identifier: Install_Dependencies
