@@ -63,26 +63,6 @@ pipeline:
                                     command: npm run lint
                                     privileged: false
                           - step:
-                                type: Run
-                                name: Run Tests
-                                identifier: Run_Test
-                                spec:
-                                    connectorRef: mansongdockerhub
-                                    image: electronuserland/builder:wine
-                                    command: |-
-                                        export DISPLAY=':99.0'
-                                        Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-                                        sleep 3
-                                        npm test
-                                    privileged: false
-                                    reports:
-                                        type: JUnit
-                                        spec:
-                                            paths:
-                                                - "*.xml"
-                                    envVariables:
-                                        JEST_JUNIT_OUTPUT_DIR: /tmp/test-reports/test.xml
-                          - step:
                                 type: SaveCacheS3
                                 name: Save Cache to S3
                                 identifier: Save_Cache_to_S3
