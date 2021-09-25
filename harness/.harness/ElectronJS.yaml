@@ -84,6 +84,7 @@ pipeline:
                                     command: |-
                                         apt-get update -y
                                         apt-get install -y dpkg fakeroot
+                                        npm build
                                         npm run make
                                     privileged: true
                                     resources:
