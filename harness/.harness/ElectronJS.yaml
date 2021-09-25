@@ -72,7 +72,6 @@ pipeline:
                                     command: |-
                                         Xvfb :99 -ac &
                                         sleep 5
-                                        cd app
                                         npm test
                                     privileged: false
                                     envVariables:
