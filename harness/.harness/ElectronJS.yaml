@@ -33,7 +33,7 @@ pipeline:
                                 identifier: Install_Dependencies
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: circleci/node:11-browsers
+                                    image: circleci/node:lts-bullseye-browsers-legacy
                                     command: |-
                                         sudo npm install -g npm
                                         npm install
