@@ -33,7 +33,7 @@ pipeline:
                                 identifier: Install_Dependencies
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: circleci/node:lts-bullseye-browsers-legacy
+                                    image: node:16
                                     command: npm install
                                     privileged: true
               variables: []
