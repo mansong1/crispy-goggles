@@ -37,6 +37,9 @@ pipeline:
                                     bucket: mansong-npm
                                     key: dependency-cache-{{ checksum "package.json" }}
                                     archiveFormat: Tar
+                                when:
+                                    stageStatus: Failure
+                                failureStrategies: []
                           - step:
                                 type: Run
                                 name: Install Dependencies
