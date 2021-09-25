@@ -74,4 +74,13 @@ pipeline:
                                     sourcePaths:
                                         - ./node_modules
                                     archiveFormat: Tar
+                          - step:
+                                type: Run
+                                name: Generate Builds
+                                identifier: Generate_Builds
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: electronuserland/builder
+                                    command: npm run make
+                                    privileged: false
               variables: []
