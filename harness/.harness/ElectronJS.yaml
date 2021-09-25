@@ -47,7 +47,7 @@ pipeline:
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: cimg/node:16.9.1-browsers
-                                    command: npm install
+                                    command: sudo npm install
                                     privileged: true
                                     resources:
                                         limits:
