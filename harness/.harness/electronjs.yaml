@@ -13,8 +13,8 @@ pipeline:
     properties:
         ci:
             codebase:
-                connectorRef: mansonggithub
-                repoName: improved-happiness
+                connectorRef: mansongGithub
+                repoName: y2mp3
                 build: <+input>
     stages:
         - stage:
