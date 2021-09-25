@@ -46,6 +46,10 @@ pipeline:
                                     image: cimg/node:16.9.1-browsers
                                     command: npm install
                                     privileged: true
+                                    resources:
+                                        limits:
+                                            memory: 1Gi
+                                            cpu: "1.0"
                           - step:
                                 type: Run
                                 name: Lint
