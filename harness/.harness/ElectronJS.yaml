@@ -38,7 +38,7 @@ pipeline:
                                     key: dependency-cache-{{ checksum "package.json" }}
                                     archiveFormat: Tar
                                 when:
-                                    stageStatus: Failure
+                                    stageStatus: Success
                                 failureStrategies: []
                           - step:
                                 type: Run
