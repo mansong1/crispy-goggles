@@ -49,15 +49,6 @@ pipeline:
                                               type: Ignore
                           - step:
                                 type: Run
-                                name: esLint
-                                identifier: ESLint
-                                spec:
-                                    connectorRef: mansongdockerhub
-                                    image: pipelinecomponents/eslint
-                                    command: eslint .
-                                    privileged: false
-                          - step:
-                                type: Run
                                 name: Install Dependencies
                                 identifier: Install_Dependencies
                                 spec:
