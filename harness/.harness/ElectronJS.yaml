@@ -36,4 +36,16 @@ pipeline:
                                     image: node:16
                                     command: npm install
                                     privileged: true
+                          - step:
+                                type: SaveCacheS3
+                                name: Save Cache to S3
+                                identifier: Save_Cache_to_S3
+                                spec:
+                                    connectorRef: mansongaws
+                                    region: eu-west-2
+                                    bucket: mansong-npm
+                                    key: dependency-cache-{{ checksum "package-lock.json" }}
+                                    sourcePaths:
+                                        - ./node_modules
+                                    archiveFormat: Tar
               variables: []
