@@ -82,8 +82,8 @@ pipeline:
                                     connectorRef: mansongdockerhub
                                     image: electronuserland/builder:wine
                                     command: |-
-                                        sudo apt-get update -y
-                                        sudo apt-get install -y dpkg fakeroot
+                                        apt-get update -y
+                                        apt-get install -y dpkg fakeroot
                                         npm run make
                                     privileged: true
                                     resources:
