@@ -68,15 +68,20 @@ pipeline:
                                 identifier: Run_Test
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: electronuserland/builder:wine-chrome-05.21
+                                    image: electronuserland/builder:wine
                                     command: |-
-                                        Xvfb :99 -ac &
-                                        sleep 5
+                                        export DISPLAY=':99.0'
+                                        Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+                                        npm install
                                         npm test
                                     privileged: false
+                                    reports:
+                                        type: JUnit
+                                        spec:
+                                            paths:
+                                                - "*.xml"
                                     envVariables:
-                                        DISPLAY: :99
-                                        NODE_ENV: test
+                                        JEST_JUNIT_OUTPUT_DIR: /tmp/test-reports/test.xml
                           - step:
                                 type: SaveCacheS3
                                 name: Save Cache to S3
