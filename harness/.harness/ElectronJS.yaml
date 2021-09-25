@@ -33,8 +33,8 @@ pipeline:
                                 identifier: Lint
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: pipelinecomponents/eslint
-                                    command: eslint .
+                                    image: node:16.9.1
+                                    command: npm run lint
                                     privileged: false
                           - step:
                                 type: RestoreCacheS3
