@@ -41,7 +41,12 @@ pipeline:
                                     bucket: mansong-npm
                                     key: y2mp3-{{ checksum "package.json" }}
                                     archiveFormat: Tar
-                                failureStrategies: []
+                                failureStrategies:
+                                    - onFailure:
+                                          errors:
+                                              - AllErrors
+                                          action:
+                                              type: Ignore
                           - step:
                                 type: Run
                                 name: esLint
