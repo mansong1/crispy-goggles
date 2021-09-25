@@ -34,7 +34,9 @@ pipeline:
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: node:16.9.1
-                                    command: npm run lint
+                                    command: |-
+                                        npm install eslint eslint-config-strongloop
+                                        npm run lint
                                     privileged: false
                           - step:
                                 type: RestoreCacheS3
