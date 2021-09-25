@@ -39,7 +39,7 @@ pipeline:
                                     connectorRef: mansongaws
                                     region: eu-west-2
                                     bucket: mansong-npm
-                                    key: gesturerecognition
+                                    key: y2mp3-{{ checksum "package.json" }}
                                     archiveFormat: Tar
                                 failureStrategies: []
                           - step:
@@ -100,7 +100,7 @@ pipeline:
                                     connectorRef: mansongaws
                                     region: eu-west-2
                                     bucket: mansong-npm
-                                    key: gesturerecognition
+                                    key: y2mp3-{{ checksum "package.json" }}
                                     sourcePaths:
                                         - node_modules
                                     archiveFormat: Tar
