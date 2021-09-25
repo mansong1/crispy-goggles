@@ -1,0 +1,39 @@
+pipeline:
+    name: ElectronJS
+    identifier: ElectronJS
+    projectIdentifier: _mansong
+    orgIdentifier: default
+    description: A Simple Electron Project
+    tags:
+        electronjs: ""
+    properties:
+        ci:
+            codebase:
+                connectorRef: mansongGithub
+                repoName: electron
+                build: <+input>
+    stages:
+        - stage:
+              name: Build
+              identifier: Build
+              description: ""
+              type: CI
+              spec:
+                  cloneCodebase: true
+                  infrastructure:
+                      type: KubernetesDirect
+                      spec:
+                          connectorRef: account.mansong_gke
+                          namespace: harness-build
+                  execution:
+                      steps:
+                          - step:
+                                type: Run
+                                name: Install Dependencies
+                                identifier: Install_Dependencies
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: circleci/node:11-browsers
+                                    command: npm install
+                                    privileged: false
+              variables: []
