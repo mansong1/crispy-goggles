@@ -80,10 +80,10 @@ pipeline:
                                 identifier: Generate_Darwin
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: node:16.9.1
+                                    image: electronuserland/builder:wine
                                     command: |-
-                                        apk update
-                                        apk add zip
+                                        apt-get update -y
+                                        apt-get install -y zip
                                         npm run make -- --platform=darwin
                                     privileged: false
                           - step:
@@ -96,7 +96,7 @@ pipeline:
                                     command: |-
                                         apt-get update -y
                                         apt-get install -y dpkg fakeroot zip
-                                        npm run make
+                                        npm run make -- --platform=linux
                                         ls -la dist
                                     privileged: true
                                     resources:
