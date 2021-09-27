@@ -103,6 +103,19 @@ pipeline:
                                             cpu: "1.0"
                           - step:
                                 type: Run
+                                name: Coverage Report
+                                identifier: Coverage_Report
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: <+CI.variables.golangImage>
+                                    command: |-
+                                        go get github.com/axw/gocov/gocov
+                                        go get github.com/AlekSi/gocov-xml
+
+                                        gocov convert cover.out | gocov-xml > coverage.xml
+                                    privileged: false
+                          - step:
+                                type: Run
                                 name: Clean
                                 identifier: Clean
                                 spec:
