@@ -112,6 +112,19 @@ pipeline:
                                         rm -rf ./bin
                                         go clean
                                     privileged: false
+                          - step:
+                                type: Run
+                                name: Build
+                                identifier: Build
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: <+CI.variables.golangImage>
+                                    command: |-
+                                        export CGO_ENABLED=0
+                                        export GO111MODULE=on
+
+                                        make build
+                                    privileged: false
               variables:
                   - name: golangImage
                     type: String
