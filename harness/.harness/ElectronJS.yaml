@@ -85,6 +85,6 @@ pipeline:
                                         apt-get update -y
                                         apt-get install -y zip
                                         npm run make -- --platform=darwin
-                                        ls -la
+                                        ls -la out
                                     privileged: false
               variables: []
