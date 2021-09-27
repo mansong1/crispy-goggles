@@ -33,7 +33,7 @@ pipeline:
                           - step:
                                 type: Run
                                 name: Get Tags
-                                identifier: Get_Version
+                                identifier: Get_Tags
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: bitnami/git
@@ -122,7 +122,7 @@ pipeline:
                                     command: |-
                                         export CGO_ENABLED=0
                                         export GO111MODULE=on
-                                        export VERSION=<+execution.steps.Get_Version.output.outputVariables.VERSION>
+                                        export VERSION=<+execution.steps.Get_Tags.output.outputVariables.VERSION>
 
                                         go build -tags netgo -a -v -ldflags "-X main.version=${VERSION} -s -w" -o ./bin/gotway ./cmd/gotway/*.go
                                         chmod +x ./bin/*
