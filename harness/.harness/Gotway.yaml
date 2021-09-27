@@ -7,6 +7,7 @@ pipeline:
     tags:
         go: ""
         golang: ""
+        multi-arch: ""
     properties:
         ci:
             codebase:
