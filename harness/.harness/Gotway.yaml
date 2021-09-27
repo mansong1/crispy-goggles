@@ -114,6 +114,11 @@ pipeline:
 
                                         gocov convert cover.out | gocov-xml > coverage.xml
                                     privileged: false
+                                    reports:
+                                        type: JUnit
+                                        spec:
+                                            paths:
+                                                - coverage.xml
                           - step:
                                 type: Run
                                 name: Clean
