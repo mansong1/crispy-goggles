@@ -57,7 +57,7 @@ pipeline:
                                       spec:
                                           connectorRef: mansongdockerhub
                                           image: hadolint/hadolint:latest-alpine
-                                          command: hadolint --ignore DL3018 Dockerfile
+                                          command: hadolint --ignore DL3018 --ignore DL3007 Dockerfile
                                           privileged: false
                                 - step:
                                       type: Run
