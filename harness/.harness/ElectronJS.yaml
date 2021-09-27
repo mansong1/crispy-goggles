@@ -98,7 +98,6 @@ pipeline:
                                               apt-get update -y
                                               apt-get install -y dpkg fakeroot zip
                                               npm run make -- --platform=linux
-                                              ls -la dist
                                           privileged: true
                                           resources:
                                               limits:
