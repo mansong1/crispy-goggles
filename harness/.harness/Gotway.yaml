@@ -122,8 +122,10 @@ pipeline:
                                     command: |-
                                         export CGO_ENABLED=0
                                         export GO111MODULE=on
+                                        export VERSION=<+execution.steps.Get_Version.output.outputVariables.VERSION>
 
-                                        make build
+                                        go build -tags netgo -a -v -ldflags "-X main.version=${VERSION} -s -w" -o ./bin/gotway ./cmd/gotway/*.go
+                                        chmod +x ./bin/*
                                     privileged: false
               variables:
                   - name: golangImage
