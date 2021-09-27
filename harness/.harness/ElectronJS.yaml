@@ -74,33 +74,16 @@ pipeline:
                                     sourcePaths:
                                         - ./node_modules
                                     archiveFormat: Tar
-                          - parallel:
-                                - step:
-                                      type: Run
-                                      name: Generate Darwin
-                                      identifier: Generate_Darwin
-                                      spec:
-                                          connectorRef: mansongdockerhub
-                                          image: electronuserland/builder:wine
-                                          command: |-
-                                              apt-get update -y
-                                              apt-get install -y zip
-                                              npm run make -- --platform=darwin
-                                          privileged: false
-                                - step:
-                                      type: Run
-                                      name: Generate Linux
-                                      identifier: Generate_Builds
-                                      spec:
-                                          connectorRef: mansongdockerhub
-                                          image: electronuserland/builder:wine
-                                          command: |-
-                                              apt-get update -y
-                                              apt-get install -y dpkg fakeroot zip
-                                              npm run make -- --platform=linux
-                                          privileged: true
-                                          resources:
-                                              limits:
-                                                  memory: 1Gi
-                                                  cpu: "1.0"
+                          - step:
+                                type: Run
+                                name: Generate Darwin
+                                identifier: Generate_Darwin
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: electronuserland/builder:wine
+                                    command: |-
+                                        apt-get update -y
+                                        apt-get install -y zip
+                                        npm run make -- --platform=darwin
+                                    privileged: false
               variables: []
