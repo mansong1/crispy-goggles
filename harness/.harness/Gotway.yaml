@@ -120,13 +120,14 @@ pipeline:
                                     connectorRef: mansongdockerhub
                                     image: <+CI.variables.golangImage>
                                     command: |-
-                                        export CGO_ENABLED=0
-                                        export GO111MODULE=on
                                         export VERSION=<+execution.steps.Get_Tags.output.outputVariables.VERSION>
 
                                         go build -tags netgo -a -v -ldflags "-X main.version=${VERSION} -s -w" -o ./bin/gotway ./cmd/gotway/*.go
                                         chmod +x ./bin/*
                                     privileged: false
+                                    envVariables:
+                                        CGO_ENABLED: "0"
+                                        GO111MODULE: "on"
               variables:
                   - name: golangImage
                     type: String
