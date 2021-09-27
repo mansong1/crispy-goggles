@@ -85,8 +85,8 @@ pipeline:
                                                   cpu: "1"
                           - step:
                                 type: Run
-                                name: Test
-                                identifier: Test
+                                name: Run Tests
+                                identifier: Run_Tests
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: pricec/gotestsum
