@@ -1,5 +1,5 @@
 pipeline:
-    name: Book Store
+    name: BookStore
     identifier: Java
     projectIdentifier: _mansong
     orgIdentifier: default
