@@ -73,17 +73,14 @@ pipeline:
                                             paths:
                                                 - "**/*.xml"
                           - step:
-                                type: RunTests
+                                type: Run
                                 name: Integration Tests
                                 identifier: Integration_Tests
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: maven:<+CI.variables.mavenversion>-<+CI.variables.javaversion>
-                                    language: Java
-                                    buildTool: Maven
-                                    args: verify -Dsurefire.skip=true
-                                    packages: tn.devops.demo
-                                    runOnlySelectedTests: true
+                                    command: mvn verify -Dsurefire.skip=true
+                                    privileged: false
                                     reports:
                                         type: JUnit
                                         spec:
