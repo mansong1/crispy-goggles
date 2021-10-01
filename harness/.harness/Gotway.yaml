@@ -155,7 +155,7 @@ pipeline:
                                     privileged: true
                                     settings:
                                         username: mansong
-                                        password: <+secrets.get('mansongdockerhub')>
+                                        password: <+secrets.getValue("mansongdockerhub")>
                                         platforms: linux/amd64,linux/arm64,linux/arm
                                         repo: mansong/gotway
                                         auto_tag: "true"
