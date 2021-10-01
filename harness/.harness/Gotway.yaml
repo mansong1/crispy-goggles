@@ -36,8 +36,10 @@ pipeline:
                                 identifier: Get_Tags
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: quay.io/pantheon-public/autotag:v1.3.9
+                                    image: bitnami/git
                                     command: |+
+                                        curl -sL https://git.io/autotag-install | sh --
+
                                         # fetch all tags and history:
                                         git fetch --tags --unshallow --prune
 
@@ -46,7 +48,7 @@ pipeline:
                                           git branch --track master origin/master
                                         fi
 
-                                        export VERSION=`./autotag/autotag --scheme=conventional`
+                                        export VERSION=`autotag --scheme=conventional`
 
                                     privileged: false
                                     outputVariables:
