@@ -27,20 +27,30 @@ pipeline:
                           namespace: harness-build
                   execution:
                       steps:
-                          - step:
-                                type: Run
-                                name: CheckStyle
-                                identifier: CheckStyle
-                                spec:
-                                    connectorRef: mansongdockerhub
-                                    image: maven:<+CI.variables.mavenversion>-<+CI.variables.javaversion>
-                                    command: mvn checkstyle:checkstyle
-                                    privileged: false
-                                    reports:
-                                        type: JUnit
-                                        spec:
-                                            paths:
-                                                - "**/target/checkstyle-result.xml"
+                          - parallel:
+                                - step:
+                                      type: Run
+                                      name: CheckStyle
+                                      identifier: CheckStyle
+                                      spec:
+                                          connectorRef: mansongdockerhub
+                                          image: maven:<+CI.variables.mavenversion>-<+CI.variables.javaversion>
+                                          command: mvn checkstyle:checkstyle
+                                          privileged: false
+                                          reports:
+                                              type: JUnit
+                                              spec:
+                                                  paths:
+                                                      - "**/target/checkstyle-result.xml"
+                                - step:
+                                      type: Run
+                                      name: Compile
+                                      identifier: Compile
+                                      spec:
+                                          connectorRef: mansongdockerhub
+                                          image: maven:<+CI.variables.mavenversion>-<+CI.variables.javaversion>
+                                          command: mvn clean compile
+                                          privileged: false
                           - step:
                                 type: RunTests
                                 name: Unit Tests
