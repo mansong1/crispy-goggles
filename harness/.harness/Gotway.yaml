@@ -160,9 +160,7 @@ pipeline:
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: snyk/snyk:golang-1.16
-                                    command: |-
-                                        cd gotway
-                                        SNYK_TOKEN=<+secrets.getValue("snykapitoken")> snyk test
+                                    command: SNYK_TOKEN=<+secrets.getValue("snykapitoken")> snyk test
                                     privileged: true
                                     resources:
                                         limits:
