@@ -32,7 +32,7 @@ pipeline:
                       steps:
                           - step:
                                 type: Run
-                                name: AutoBump
+                                name: Auto Tag
                                 identifier: Get_Tags
                                 spec:
                                     connectorRef: mansongdockerhub
@@ -46,10 +46,7 @@ pipeline:
                                           git branch --track master origin/master
                                         fi
 
-                                        export VERSION=`autotag --scheme=conventional`
-
-                                        echo $PATH
-                                        which autotag
+                                        export VERSION=`./autotag/autotag --scheme=conventional`
 
                                     privileged: false
                                     outputVariables:
