@@ -84,6 +84,11 @@ pipeline:
                                     args: verify -Dsurefire.skip=true
                                     packages: tn.devops.demo
                                     runOnlySelectedTests: true
+                                    reports:
+                                        type: JUnit
+                                        spec:
+                                            paths:
+                                                - target/failsafe-reports/**/*.xml
                                     resources:
                                         limits:
                                             memory: 1Gi
