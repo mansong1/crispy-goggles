@@ -1,15 +1,10 @@
 pipeline:
-    name: PetClinic
+    name: Java Demo
     identifier: Java
     projectIdentifier: _mansong
     orgIdentifier: default
     tags:
         java: ""
-        springboot: ""
-        cosmos: ""
-        spring: ""
-        cosmosdb: ""
-        spring-data-cosmosdb: ""
     properties:
         ci:
             codebase:
