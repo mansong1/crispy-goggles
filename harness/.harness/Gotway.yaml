@@ -32,11 +32,11 @@ pipeline:
                       steps:
                           - step:
                                 type: Run
-                                name: Get Tags
+                                name: AutoBump
                                 identifier: Get_Tags
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: bitnami/git
+                                    image: pantheonpublic/autotag:latest
                                     command: |-
                                         # fetch all tags and history:
                                         git fetch --tags --unshallow --prune
@@ -46,10 +46,7 @@ pipeline:
                                           git branch --track master origin/master
                                         fi
 
-                                        # export VERSION=`git -c 'versionsort.suffix=-' \
-                                        #     ls-remote --exit-code --refs --sort='version:refname' --tags https://github.com/mansong1/gotway '*.*.*' \
-                                        #     | tail --lines=1 \
-                                        #     | cut --delimiter='/' --fields=3`
+                                        export VERSION=`autotag`
                                     privileged: false
                                     outputVariables:
                                         - name: VERSION
