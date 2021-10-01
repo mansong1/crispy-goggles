@@ -1,10 +1,12 @@
 pipeline:
-    name: Java Demo
+    name: Book Store
     identifier: Java
     projectIdentifier: _mansong
     orgIdentifier: default
     tags:
         java: ""
+        maven: ""
+        openjdk8: ""
     properties:
         ci:
             codebase:
@@ -46,4 +48,4 @@ pipeline:
                   - name: javaversion
                     type: String
                     value: openjdk-8
-    description: Petclinic is a Spring Boot application built using Maven.
+    description: Book Store Java Application built using Maven.
