@@ -145,6 +145,18 @@ pipeline:
                                     envVariables:
                                         CGO_ENABLED: "0"
                                         GO111MODULE: "on"
+                          - step:
+                                type: Plugin
+                                name: Docker Build and Publish
+                                identifier: Docker_Build_and_Publish
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: drone-docker-buildx
+                                    privileged: false
+                                    settings:
+                                        username: mansong
+                                        password: <+secrets.get('mansongdockerhub')>
+                                        platforms: '"linux/amd64,linux/arm64,linux/arm"'
               variables:
                   - name: golangImage
                     type: String
