@@ -48,7 +48,7 @@ pipeline:
                                           git branch --track master origin/master
                                         fi
 
-                                        export VERSION=`./bin/autotag --scheme=conventional`
+                                        export VERSION=`./bin/autotag`
 
                                     privileged: false
                                     outputVariables:
