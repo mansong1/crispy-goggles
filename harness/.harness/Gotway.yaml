@@ -147,20 +147,6 @@ pipeline:
                                     envVariables:
                                         CGO_ENABLED: "0"
                                         GO111MODULE: "on"
-                          - step:
-                                type: Plugin
-                                name: Github Release
-                                identifier: Github_Release
-                                spec:
-                                    connectorRef: mansongdockerhub
-                                    image: plugins/github-release
-                                    privileged: false
-                                    settings:
-                                        api_key: df
-                                        files: df
-                                        title: <+execution.steps.Get_Tags.output.outputVariables.VERSION>
-                                        note: CHANGELOG.md
-                                description: Publish Files and Artifacts to GitHub Release
               variables:
                   - name: golangImage
                     type: String
