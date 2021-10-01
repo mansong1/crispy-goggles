@@ -38,12 +38,11 @@ pipeline:
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: bitnami/git
-                                    command: |+
+                                    command: |-
                                         export VERSION=`git -c 'versionsort.suffix=-' \
                                             ls-remote --exit-code --refs --sort='version:refname' --tags https://github.com/mansong1/gotway '*.*.*' \
                                             | tail --lines=1 \
                                             | cut --delimiter='/' --fields=3`
-
                                     privileged: false
                                     outputVariables:
                                         - name: VERSION
