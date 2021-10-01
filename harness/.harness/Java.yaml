@@ -71,7 +71,7 @@ pipeline:
                                         type: JUnit
                                         spec:
                                             paths:
-                                                - target/surefire-reports/**/*.xml
+                                                - "**/target/surefire-reports/**/*.xml"
                           - step:
                                 type: RunTests
                                 name: Integration Tests
@@ -88,7 +88,7 @@ pipeline:
                                         type: JUnit
                                         spec:
                                             paths:
-                                                - target/failsafe-reports/**/*.xml
+                                                - "**/target/failsafe-reports/**/*.xml"
                                     resources:
                                         limits:
                                             memory: 1Gi
