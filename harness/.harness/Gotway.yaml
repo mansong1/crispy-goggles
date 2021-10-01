@@ -147,17 +147,24 @@ pipeline:
                                         GO111MODULE: "on"
                           - step:
                                 type: Plugin
-                                name: Docker Build and Publish
-                                identifier: Docker_Build_and_Publish
+                                name: Build and Push Docker Image
+                                identifier: Build_and_Push_Docker_Image
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: drone-docker-buildx
-                                    privileged: false
+                                    image: thegeeklab/drone-docker-buildx
+                                    privileged: true
                                     settings:
                                         username: mansong
                                         password: <+secrets.get('mansongdockerhub')>
-                                        platforms: '"linux/amd64,linux/arm64,linux/arm"'
+                                        platforms: linux/amd64,linux/arm64,linux/arm
+                                        repo: mansong/gotway
+                                        auto_tag: "true"
+                                when:
+                                    stageStatus: Success
+                                failureStrategies: []
               variables:
                   - name: golangImage
                     type: String
                     value: golang:1.16.6-alpine3.14
+    flowControl:
+        barriers: []
