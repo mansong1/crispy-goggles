@@ -125,4 +125,10 @@ pipeline:
                   - name: javaversion
                     type: String
                     value: openjdk-8
+                  - name: SONARQUBE_URL
+                    type: String
+                    value: "''"
+                  - name: SONARQUBE_PORT
+                    type: String
+                    value: "9000"
     description: Book Store Java Application built using Maven.
