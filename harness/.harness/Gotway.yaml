@@ -146,6 +146,21 @@ pipeline:
                                         CGO_ENABLED: "0"
                                         GO111MODULE: "on"
                           - step:
+                                type: Run
+                                name: Snyk Scan
+                                identifier: snyk_scan
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: snyk/snyk:golang-1.16
+                                    command: |-
+                                        cd gotway
+                                        SNYK_TOKEN=<+secrets.getValue("snykapitoken")> snyk test
+                                    privileged: true
+                                    resources:
+                                        limits:
+                                            memory: 1Gi
+                                            cpu: "1.0"
+                          - step:
                                 type: Plugin
                                 name: Build and Push Docker Image
                                 identifier: Build_and_Push_Docker_Image
