@@ -53,6 +53,45 @@ pipeline:
                                     args: test
                                     packages: tn.devops.demo
                                     runOnlySelectedTests: true
+                          - parallel:
+                                - step:
+                                      type: Run
+                                      name: PMD
+                                      identifier: PMD
+                                      spec:
+                                          connectorRef: mansongdockerhub
+                                          image: maven:<+CI.variables.mavenversion>-<+CI.variables.javaversion>
+                                          command: mvn pmd:pmd
+                                          privileged: false
+                                          reports:
+                                              type: JUnit
+                                              spec:
+                                                  paths:
+                                                      - "**/target/pmd.xml"
+                                - step:
+                                      type: Run
+                                      name: Findbugs
+                                      identifier: Findbugs
+                                      spec:
+                                          connectorRef: mansongdockerhub
+                                          image: maven:<+CI.variables.mavenversion>-<+CI.variables.javaversion>
+                                          command: mvn findbugs:findbugs
+                                          privileged: false
+                                          reports:
+                                              type: JUnit
+                                              spec:
+                                                  paths:
+                                                      - "**/target/findbugsXml.xml"
+                                      failureStrategies: []
+                                - step:
+                                      type: Run
+                                      name: JavaDoc
+                                      identifier: JavaDoc
+                                      spec:
+                                          connectorRef: mansongdockerhub
+                                          image: maven:<+CI.variables.mavenversion>-<+CI.variables.javaversion>
+                                          command: mvn javadoc:javadoc
+                                          privileged: false
               variables:
                   - name: mavenversion
                     type: String
