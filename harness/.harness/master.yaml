@@ -1,0 +1,14 @@
+inputSet:
+  identifier: "master"
+  pipeline:
+    identifier: "Gotway"
+    properties:
+      ci:
+        codebase:
+          build:
+            type: "branch"
+            spec:
+              branch: "master"
+  name: "master"
+  orgIdentifier: "default"
+  projectIdentifier: "_mansong"
