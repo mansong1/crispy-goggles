@@ -41,6 +41,18 @@ pipeline:
                                         spec:
                                             paths:
                                                 - "**/target/checkstyle-result.xml"
+                          - step:
+                                type: RunTests
+                                name: Unit Tests
+                                identifier: Unit_Tests
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: maven:<+CI.variables.mavenversion>-<+CI.variables.javaversion>
+                                    language: Java
+                                    buildTool: Maven
+                                    args: test
+                                    packages: tn.devops.demo
+                                    runOnlySelectedTests: true
               variables:
                   - name: mavenversion
                     type: String
