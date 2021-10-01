@@ -36,7 +36,7 @@ pipeline:
                                 identifier: CheckStyle
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: <+CI.variables.mavenversion>
+                                    image: <+CI.variables.mavenversion>-<+CI.variables.javaversion>
                                     command: mvn checkstyle:checkstyle
                                     privileged: false
                                     reports:
