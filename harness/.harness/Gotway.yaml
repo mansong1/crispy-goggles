@@ -168,7 +168,7 @@ pipeline:
                                         GO111MODULE: "on"
                           - step:
                                 type: Plugin
-                                name: Build and Push Docker Image
+                                name: Build and Push Docker Images
                                 identifier: Build_and_Push_Docker_Image
                                 spec:
                                     connectorRef: mansongdockerhub
