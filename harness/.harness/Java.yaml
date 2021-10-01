@@ -39,6 +39,11 @@ pipeline:
                                     image: <+CI.variables.mavenversion>
                                     command: mvn checkstyle:checkstyle
                                     privileged: false
+                                    reports:
+                                        type: JUnit
+                                        spec:
+                                            paths:
+                                                - "**/target/checkstyle-result.xml"
               variables:
                   - name: mavenversion
                     type: String
