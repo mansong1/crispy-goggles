@@ -51,6 +51,10 @@ pipeline:
                                           image: maven:<+CI.variables.mavenversion>-<+CI.variables.javaversion>
                                           command: mvn clean compile
                                           privileged: false
+                                          resources:
+                                              limits:
+                                                  memory: 1Gi
+                                                  cpu: "1.0"
                           - step:
                                 type: RunTests
                                 name: Unit Tests
