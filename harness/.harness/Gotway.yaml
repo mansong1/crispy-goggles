@@ -37,7 +37,9 @@ pipeline:
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: pantheonpublic/autotag:latest
-                                    command: |-
+                                    command: |+
+                                        curl -sL https://git.io/autotag-install | sh --
+
                                         # fetch all tags and history:
                                         git fetch --tags --unshallow --prune
 
@@ -47,6 +49,7 @@ pipeline:
                                         fi
 
                                         export VERSION=`autotag --scheme=conventional`
+
                                     privileged: false
                                     outputVariables:
                                         - name: VERSION
