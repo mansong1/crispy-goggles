@@ -53,6 +53,18 @@ pipeline:
                                     args: test
                                     packages: tn.devops.demo
                                     runOnlySelectedTests: true
+                          - step:
+                                type: RunTests
+                                name: Integration Tests
+                                identifier: Integration_Tests
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: maven:<+CI.variables.mavenversion>-<+CI.variables.javaversion>
+                                    language: Java
+                                    buildTool: Maven
+                                    args: verify -Dsurefire.skip=true
+                                    packages: tn.devops.demo
+                                    runOnlySelectedTests: true
                           - parallel:
                                 - step:
                                       type: Run
