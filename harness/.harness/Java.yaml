@@ -31,26 +31,13 @@ pipeline:
                   execution:
                       steps:
                           - step:
-                                type: RunTests
-                                name: Run Tests
-                                identifier: Run_Tests
-                                spec:
-                                    connectorRef: mansongdockerhub
-                                    image: maven:<+CI.variables.mavenversion>-jdk-<+CI.variables.javaversion>
-                                    language: Java
-                                    buildTool: Maven
-                                    args: test
-                                    packages: com.
-                                    runOnlySelectedTests: true
-                                    preCommand: cd spring-petclinic
-                          - step:
                                 type: Run
-                                name: Build
-                                identifier: Build
+                                name: CheckStyle
+                                identifier: CheckStyle
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: maven:<+pipeline.variables.mavenversion>-jdk-<+pipeline.variables.javaversion>
-                                    command: mvn -B -DskipTests clean package
+                                    image: <+CI.variables.mavenversion>
+                                    command: mvn checkstyle:checkstyle
                                     privileged: false
               variables:
                   - name: mavenversion
