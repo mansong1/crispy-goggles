@@ -11,7 +11,7 @@ pipeline:
         ci:
             codebase:
                 connectorRef: mansongGithub
-                repoName: spring-petclinic
+                repoName: special-tribble
                 build: <+input>
     stages:
         - stage:
