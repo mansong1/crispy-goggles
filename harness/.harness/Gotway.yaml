@@ -185,6 +185,14 @@ pipeline:
                                 failureStrategies: []
                   sharedPaths:
                       - /var/run
+                  serviceDependencies:
+                      - identifier: QEMU
+                        name: QEMU
+                        type: Service
+                        spec:
+                            connectorRef: mansongdockerhub
+                            image: tonistiigi/binfmt
+                            privileged: true
               variables:
                   - name: golangImage
                     type: String
