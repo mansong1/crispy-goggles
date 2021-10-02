@@ -166,23 +166,6 @@ pipeline:
                                     envVariables:
                                         CGO_ENABLED: "0"
                                         GO111MODULE: "on"
-                          - step:
-                                type: Plugin
-                                name: Build and Push Docker Images
-                                identifier: Build_and_Push_Docker_Image
-                                spec:
-                                    connectorRef: mansongdockerhub
-                                    image: thegeeklab/drone-docker-buildx
-                                    privileged: true
-                                    settings:
-                                        username: mansong
-                                        password: <+secrets.getValue("mansongdockerhub")>
-                                        platforms: linux/amd64,linux/arm64,linux/arm
-                                        repo: mansong/gotway
-                                        auto_tag: "true"
-                                when:
-                                    stageStatus: Success
-                                failureStrategies: []
                   sharedPaths:
                       - /var/run
               variables:
