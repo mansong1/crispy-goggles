@@ -191,9 +191,6 @@ pipeline:
                                     envVariables:
                                         DOCKER_USERNAME: mansong
                                         DOCKER_PASSWORD: <+secrets.getValue("mansongdockerhub")>
-                  sharedPaths:
-                      - /var/run
-                      - /var/lib/docker
               variables:
                   - name: golangImage
                     type: String
