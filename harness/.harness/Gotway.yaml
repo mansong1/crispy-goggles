@@ -183,13 +183,6 @@ pipeline:
                                 when:
                                     stageStatus: Success
                                 failureStrategies: []
-                  serviceDependencies:
-                      - identifier: QEMU
-                        name: QEMU
-                        type: Service
-                        spec:
-                            connectorRef: mansongdockerhub
-                            image: tonistiigi/binfmt:latest
               variables:
                   - name: golangImage
                     type: String
