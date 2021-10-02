@@ -194,7 +194,7 @@ pipeline:
                             image: tonistiigi/binfmt
                             privileged: true
                             args:
-                                - --install all
+                                - -install all
               variables:
                   - name: golangImage
                     type: String
