@@ -65,7 +65,7 @@ pipeline:
                                     language: Java
                                     buildTool: Maven
                                     args: test
-                                    packages: tn.devops.demo
+                                    packages: org.springframework.boot,tn.devops.demo
                                     runOnlySelectedTests: false
                                     reports:
                                         type: JUnit
