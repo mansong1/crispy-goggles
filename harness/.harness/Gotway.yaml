@@ -193,6 +193,8 @@ pipeline:
                             connectorRef: mansongdockerhub
                             image: tonistiigi/binfmt
                             privileged: true
+                            args:
+                                - --install all
               variables:
                   - name: golangImage
                     type: String
