@@ -183,6 +183,8 @@ pipeline:
                                 when:
                                     stageStatus: Success
                                 failureStrategies: []
+                  sharedPaths:
+                      - /var/run
               variables:
                   - name: golangImage
                     type: String
