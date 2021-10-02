@@ -41,7 +41,7 @@ pipeline:
                                               type: JUnit
                                               spec:
                                                   paths:
-                                                      - "**/*.xml"
+                                                      - "**/target/checkstyle-result.xml"
                                 - step:
                                       type: Run
                                       name: Compile
@@ -71,7 +71,7 @@ pipeline:
                                         type: JUnit
                                         spec:
                                             paths:
-                                                - "**/*.xml"
+                                                - target/surefire-reports/**/*.xml
                           - step:
                                 type: Run
                                 name: Integration Tests
@@ -85,7 +85,7 @@ pipeline:
                                         type: JUnit
                                         spec:
                                             paths:
-                                                - "**/*.xml"
+                                                - target/failsafe-reports/**/*.xml
                                     resources:
                                         limits:
                                             memory: 1Gi
@@ -104,7 +104,7 @@ pipeline:
                                               type: JUnit
                                               spec:
                                                   paths:
-                                                      - "**/*.xml"
+                                                      - "**/target/pmd.xml"
                                 - step:
                                       type: Run
                                       name: Findbugs
@@ -118,7 +118,7 @@ pipeline:
                                               type: JUnit
                                               spec:
                                                   paths:
-                                                      - "**/*.xml"
+                                                      - "**/target/findbugsXml.xml"
                                       failureStrategies: []
                                 - step:
                                       type: Run
@@ -129,6 +129,11 @@ pipeline:
                                           image: maven:<+CI.variables.mavenversion>-<+CI.variables.javaversion>
                                           command: mvn javadoc:javadoc
                                           privileged: false
+                                          reports:
+                                              type: JUnit
+                                              spec:
+                                                  paths:
+                                                      - ./target/site/apidocs
               variables:
                   - name: mavenversion
                     type: String
