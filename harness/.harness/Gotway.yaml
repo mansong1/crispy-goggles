@@ -180,25 +180,35 @@ pipeline:
                                         CGO_ENABLED: "0"
                                         GO111MODULE: "on"
                           - step:
-                                type: Plugin
-                                name: Multi-Arch Docker Build and Publish
-                                identifier: MultiArch_Docker_Build_and_Publish
+                                type: Run
+                                name: Multi-Arch Docker Build and Push
+                                identifier: MultiArch_Docker_Build_and_Push
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: thegeeklab/drone-docker-buildx
+                                    image: ncrmro/docker-buildx
+                                    command: |-
+                                        set -e
+
+                                        docker version
+                                        docker buildx version
+
+                                        tag=<+execution.steps.Get_Tags.output.outputVariables.VERSION>
+
+                                        name="gotway"
+                                        image="mansong/$name"
+                                        platform="linux/amd64,linux/arm64,linux/arm"
+
+                                        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+                                        docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+
+                                        docker buildx create --name "$name" --use --append
+                                        docker buildx build --platform "$platform" -t "$image:$tag" -t "$image:latest" --push .
+                                        docker buildx imagetools inspect "$image:latest"
                                     privileged: true
-                                    settings:
-                                        repo: mansong/gotway
-                                        purge: "true"
-                                        compress: "true"
-                                        platforms: linux/amd64,linux/arm64,linux/arm
-                                        username: mansong
-                                        password: <+secrets.getValue("mansongdockerhub")>
-                                        tags: <+execution.steps.Get_Tags.output.outputVariables.VERSION>
-                                    resources:
-                                        limits:
-                                            memory: 1Gi
-                                            cpu: "1.0"
+                                    envVariables:
+                                        DOCKER_PASSWORD: <+secret.getValue("mansongdockerhub")>
+                                        DOCKER_USERNAME: mansong
                   serviceDependencies:
                       - identifier: DIND
                         name: DIND
