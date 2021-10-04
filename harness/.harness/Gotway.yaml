@@ -186,6 +186,14 @@ pipeline:
                                         limits:
                                             memory: 1Gi
                                             cpu: "1.0"
+                  serviceDependencies:
+                      - identifier: DIND
+                        name: DIND
+                        type: Service
+                        spec:
+                            connectorRef: mansongdockerhub
+                            image: docker:dind
+                            privileged: true
               variables:
                   - name: golangImage
                     type: String
