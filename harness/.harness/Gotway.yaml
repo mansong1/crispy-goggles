@@ -32,6 +32,19 @@ pipeline:
                       steps:
                           - step:
                                 type: Run
+                                name: Check DIND
+                                identifier: Check_DIND
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: docker:dind
+                                    command: |-
+                                        while ! docker ps ;do
+                                            echo "Docker not availble yet"
+                                        done
+                                            echo "Docker Service Ready"
+                                    privileged: false
+                          - step:
+                                type: Run
                                 name: Create Tag
                                 identifier: Get_Tags
                                 spec:
@@ -194,6 +207,9 @@ pipeline:
                             connectorRef: mansongdockerhub
                             image: docker:dind
                             privileged: true
+                  sharedPaths:
+                      - /var/run
+                      - /var/lib/docker
               variables:
                   - name: golangImage
                     type: String
