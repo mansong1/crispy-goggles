@@ -207,7 +207,7 @@ pipeline:
                                         docker buildx imagetools inspect "$image:latest"
                                     privileged: true
                                     envVariables:
-                                        DOCKER_PASSWORD: <+secret.getValue("mansongdockerhub")>
+                                        DOCKER_PASSWORD: <+secrets.getValue("mansongdockerhub")>
                                         DOCKER_USERNAME: mansong
                   serviceDependencies:
                       - identifier: DIND
