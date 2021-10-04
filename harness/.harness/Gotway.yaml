@@ -167,30 +167,20 @@ pipeline:
                                         CGO_ENABLED: "0"
                                         GO111MODULE: "on"
                           - step:
-                                type: Run
-                                name: Docker Build and Publish
-                                identifier: Docker_Build_and_Publish
+                                type: Plugin
+                                name: Multi-Arch Docker Build and Publish
+                                identifier: MultiArch_Docker_Build_and_Publish
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: docker:dind
-                                    command: |-
-                                        set -e
-
-                                        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-
-                                        tag=<+CI.variables.golangImage>
-                                        name="gotway"
-                                        image="mansong/$name"
-                                        platform="linux/amd64,linux/arm64,linux/arm"
-
-                                        echo "Building image '$image:$tag'..."
-                                        docker buildx create --name "$name" --use --append
-                                        docker buildx build --platform "$platform" -t "$image:$tag" -t "$image:latest" --push .
-                                        docker buildx imagetools inspect "$image:latest"
+                                    image: thegeeklab/drone-docker-buildx
                                     privileged: true
-                                    envVariables:
-                                        DOCKER_USERNAME: mansong
-                                        DOCKER_PASSWORD: <+secrets.getValue("mansongdockerhub")>
+                                    settings:
+                                        repo: mansong/gotway
+                                        purge: "true"
+                                        compress: "true"
+                                        platforms: linux/amd64,linux/arm64,linux/arm
+                                        username: mansong
+                                        password: <+secrets.getValue("mansongdockerhub")>
               variables:
                   - name: golangImage
                     type: String
