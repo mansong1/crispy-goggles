@@ -134,20 +134,6 @@ pipeline:
                                               spec:
                                                   paths:
                                                       - ./target/site/apidocs
-                                - step:
-                                      type: Plugin
-                                      name: SonarQube
-                                      identifier: SonarQube
-                                      spec:
-                                          connectorRef: mansongdockerhub
-                                          image: aosapps/drone-sonar-plugin
-                                          privileged: true
-                                          settings:
-                                              sonar_host: http://35.189.72.203:9000
-                                              sonar_token: <+secrets.getValue("sonartoken")>
-                                              sources: src
-                                              level: DEBUG
-                                              showProfiling: "true"
               variables:
                   - name: mavenversion
                     type: String
