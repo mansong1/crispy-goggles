@@ -181,6 +181,11 @@ pipeline:
                                         platforms: linux/amd64,linux/arm64,linux/arm
                                         username: mansong
                                         password: <+secrets.getValue("mansongdockerhub")>
+                                        tags: <+execution.steps.Get_Tags.output.outputVariables.VERSION>
+                                    resources:
+                                        limits:
+                                            memory: 1Gi
+                                            cpu: "1.0"
               variables:
                   - name: golangImage
                     type: String
