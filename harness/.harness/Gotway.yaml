@@ -32,7 +32,7 @@ pipeline:
                       steps:
                           - step:
                                 type: Run
-                                name: Auto Tag
+                                name: Create Tag
                                 identifier: Get_Tags
                                 spec:
                                     connectorRef: mansongdockerhub
