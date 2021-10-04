@@ -185,7 +185,7 @@ pipeline:
                                 identifier: MultiArch_Docker_Build_and_Push
                                 spec:
                                     connectorRef: mansongdockerhub
-                                    image: ncrmro/docker-buildx
+                                    image: ncrmro/docker-buildx:20.10.6-0.5.1
                                     command: |-
                                         set -e
 
