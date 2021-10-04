@@ -145,7 +145,7 @@ pipeline:
                                           settings:
                                               sonar_host: http://35.189.72.203:9000
                                               sonar_token: <+secrets.getValue("sonartoken")>
-                                              sources: "."
+                                              sources: src
                                               level: DEBUG
                                               showProfiling: "true"
               variables:
