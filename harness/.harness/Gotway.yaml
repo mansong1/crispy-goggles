@@ -202,7 +202,7 @@ pipeline:
 
                                         docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 
-                                        docker buildx create --name "$name" --use --append
+                                        docker buildx create --append --name "$name" --use
                                         docker buildx build --platform "$platform" -t "$image:$tag" -t "$image:latest" --push .
                                         docker buildx imagetools inspect "$image:latest"
                                     privileged: true
