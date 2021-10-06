@@ -159,7 +159,7 @@ pipeline:
                       rollbackSteps: []
                   serviceDependencies:
                       - identifier: Dind_Dependency
-                        name: Dind_Dependency
+                        name: DIND
                         type: Service
                         spec:
                             connectorRef: mansongdockerhub
