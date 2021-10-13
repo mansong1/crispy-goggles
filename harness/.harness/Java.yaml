@@ -56,6 +56,15 @@ pipeline:
                                                   memory: 1Gi
                                                   cpu: "1.0"
                           - step:
+                                type: Run
+                                name: Snyk Scan
+                                identifier: Snyk_Scan
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: snyk/snyk:maven-3-jdk-8
+                                    command: SNYK_TOKEN=<+secrets.getValue("snykapitoken")> snyk test
+                                    privileged: false
+                          - step:
                                 type: RunTests
                                 name: Unit Tests
                                 identifier: Unit_Tests
