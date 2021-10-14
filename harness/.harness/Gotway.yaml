@@ -209,6 +209,10 @@ pipeline:
                                     envVariables:
                                         DOCKER_PASSWORD: <+secrets.getValue("mansongdockerhub")>
                                         DOCKER_USERNAME: mansong
+                                    resources:
+                                        limits:
+                                            memory: 1Gi
+                                            cpu: "1.0"
                   serviceDependencies:
                       - identifier: DIND
                         name: DIND
