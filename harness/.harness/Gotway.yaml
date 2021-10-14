@@ -179,6 +179,10 @@ pipeline:
                                     envVariables:
                                         CGO_ENABLED: "0"
                                         GO111MODULE: "on"
+                                    resources:
+                                        limits:
+                                            memory: 1Gi
+                                            cpu: "1.0"
                           - step:
                                 type: Run
                                 name: Multi-Arch Docker Build and Push
