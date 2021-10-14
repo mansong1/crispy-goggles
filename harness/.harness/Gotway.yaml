@@ -18,7 +18,7 @@ pipeline:
                 prCloneStrategy: SourceBranch
     stages:
         - stage:
-              name: Build and Release
+              name: CI
               identifier: CI
               type: CI
               spec:
