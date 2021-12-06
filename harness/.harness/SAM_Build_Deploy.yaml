@@ -30,6 +30,15 @@ pipeline:
                       steps:
                           - step:
                                 type: Run
+                                name: Echo
+                                identifier: Echo
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: busybox:latest
+                                    command: echo "Hello World" >> /root/test
+                                    privileged: false
+                          - step:
+                                type: Run
                                 name: Check dind service
                                 identifier: Check_dind_service
                                 spec:
@@ -156,7 +165,6 @@ pipeline:
                                     bucket: mansong-sam
                                     sourcePath: packaged.yaml
                                 failureStrategies: []
-                      rollbackSteps: []
                   serviceDependencies:
                       - identifier: Dind_Dependency
                         name: DIND
@@ -168,6 +176,7 @@ pipeline:
                   sharedPaths:
                       - /var/run
                       - /var/lib/docker
+                      - /root/
               variables:
                   - name: AWS_ACCESS_KEY_ID
                     type: Secret
