@@ -35,7 +35,7 @@ pipeline:
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: busybox:latest
-                                    command: echo "Hello World" >> /root/test
+                                    command: echo "Hello World" >> /harness/test
                                     privileged: false
                           - step:
                                 type: Run
@@ -176,7 +176,7 @@ pipeline:
                   sharedPaths:
                       - /var/run
                       - /var/lib/docker
-                      - /root/
+                      - /harness/
               variables:
                   - name: AWS_ACCESS_KEY_ID
                     type: Secret
