@@ -35,7 +35,7 @@ pipeline:
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: busybox:latest
-                                    command: echo "Hello World" >> /harness/test
+                                    command: echo "Hello World" >> /var/hello
                                     privileged: false
                           - step:
                                 type: Run
@@ -44,7 +44,7 @@ pipeline:
                                 spec:
                                     connectorRef: mansongdockerhub
                                     image: busybox:latest
-                                    command: cat /harness/test
+                                    command: cat /var/hello
                                     privileged: false
                           - step:
                                 type: Run
