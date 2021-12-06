@@ -185,7 +185,7 @@ pipeline:
                   sharedPaths:
                       - /var/run
                       - /var/lib/docker
-                      - /harness/
+                      - /var/
               variables:
                   - name: AWS_ACCESS_KEY_ID
                     type: Secret
