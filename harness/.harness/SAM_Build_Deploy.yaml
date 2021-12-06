@@ -39,6 +39,15 @@ pipeline:
                                     privileged: false
                           - step:
                                 type: Run
+                                name: Cat
+                                identifier: Cat
+                                spec:
+                                    connectorRef: mansongdockerhub
+                                    image: busybox:latest
+                                    command: cat /harness/test
+                                    privileged: false
+                          - step:
+                                type: Run
                                 name: Check dind service
                                 identifier: Check_dind_service
                                 spec:
